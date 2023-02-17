@@ -1,5 +1,5 @@
-function pathNodeList = dijkstra_plan(start_state, goal_state, map, action_set, calKeyIndexFcn)
-%DIJKSTRA_PLAN use dijkstra for planning 
+function pathNodeList = dijkstra_plan2D(start_state, goal_state, map, action_set, calKeyIndexFcn)
+%DIJKSTRA_PLAN2D use dijkstra for planning 
 %   input:
 %       start_state, goal_state: coordinate of start, goal state on map
 %                                                  table (range: [1, size(map,1)],  [1, size(map,2)])
