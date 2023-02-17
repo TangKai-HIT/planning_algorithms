@@ -1,11 +1,10 @@
-function pathNodeList = dijkstra_plan2D(start_state, goal_state, map, action_set, calKeyIndexFcn)
+function pathNodeList = dijkstra_plan2D(start_state, goal_state, map, action_set)
 %DIJKSTRA_PLAN2D use dijkstra for planning 
 %   input:
 %       start_state, goal_state: coordinate of start, goal state on map
 %                                                  table (range: [1, size(map,1)],  [1, size(map,2)])
 %       map: discrete map with obstacle (2d-array)
 %       action_set: struct, members -- actions(cell), cost(array)
-%       calKeyIndexFcn: key index calculation function handle -- f(x) (slower when using function handle)
 %   output:
 %       pathNodeList: dijkNode array
 
@@ -13,6 +12,7 @@ function pathNodeList = dijkstra_plan2D(start_state, goal_state, map, action_set
 openList = containers.Map('KeyType', 'double', 'ValueType', 'any'); %point index set of those haven't been accepted
 closedList = containers.Map('KeyType', 'double', 'ValueType', 'any'); %point index set of those have been accepted
 
+x_width = size(map, 1) + 1;
 x_max = size(map, 1);
 y_max = size(map, 2);
 x_min = 1;
@@ -21,8 +21,8 @@ y_min = 1;
 startNode = dijkNode(start_state, 0); %start node: index 1
 goalNode = dijkNode(goal_state); %goal node: index 2
 
-startKey = calKeyIndexFcn(start_state);
-goalKey = calKeyIndexFcn(goal_state);
+startKey = calKeyIndex2D(start_state, x_width, x_min, y_min);
+goalKey = calKeyIndex2D(goal_state, x_width, x_min, y_min);
 openList(startKey) = startNode;
 openList(goalKey) = goalNode;
 
@@ -64,7 +64,7 @@ while true
         end
 
         %check if new node
-        neigh_keyIndex = calKeyIndexFcn(neigh_coordinate);
+        neigh_keyIndex = calKeyIndex2D(neigh_coordinate, x_width, x_min, y_min);
         
         isOpenList = isKey(openList, neigh_keyIndex);
         isClosedList = isKey(closedList, neigh_keyIndex);

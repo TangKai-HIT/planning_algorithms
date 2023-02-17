@@ -28,15 +28,9 @@ action_set.cost(1:4) = sqrt(2);
 action_set.cost(5:8) = 1;
 
 %% Start planning
-x_width = size(map.table, 1) + 1;
-x_min = 1;
-y_min = 1;
-
-calKeyIndexFcn = @(x) calKeyIndex2D(x, x_width, x_min, y_min);
-
 disp("Start dijktra algorithm ...");
 tic;
-pathNodeList = dijkstra_plan(start, goal, map.table, action_set, calKeyIndexFcn);
+pathNodeList = dijkstra_plan2D(start, goal, map.table, action_set);
 solve_time = toc;
 fprintf("Solve time: %.3f s\n", solve_time);
 
