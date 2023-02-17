@@ -54,7 +54,6 @@ while true
     for i = 1:length(action_set.actions)
         %neighbors' coordinates
         neigh_move = action_set.actions{i};
-        neigh_cost = action_set.cost(i);
         neigh_coordinate = cur_Node.coordinate +neigh_move;
 
         %check if node feasible(not out of boundary or in obstacle)
@@ -64,26 +63,29 @@ while true
             continue;
         end
 
-        %check if new node
+        %check if new node or already in list
         neigh_keyIndex = calKeyIndex2D(neigh_coordinate, x_width, x_min, y_min);
         
         isOpenList = isKey(openList, neigh_keyIndex);
         isClosedList = isKey(closedList, neigh_keyIndex);
+        
+        if isClosedList %continue if in closed list
+            continue;
+        end
 
-        if isOpenList || isClosedList %already in list
-            cur_cost = neigh_cost + cur_Node.cost;
-            if isOpenList %in open list
-                neighNode = openList(neigh_keyIndex); %get neighboor node handle
-            else %in closed list
-                neighNode = closedList(neigh_keyIndex); %get neighboor node handle
-            end
+        %compute cost
+        neigh_cost = action_set.cost(i);
+        cur_cost = neigh_cost + cur_Node.cost;
+
+        if isOpenList %already in open list
+            neighNode = openList(neigh_keyIndex); %get neighboor node handle
             %update cost & parent index
             if neighNode.cost > cur_cost
                 neighNode.cost =  cur_cost; 
                 neighNode.parentIndex = cur_key;
             end
         else
-            newNode = dijkNode(neigh_coordinate , neigh_cost + cur_Node.cost, cur_key);
+            newNode = dijkNode(neigh_coordinate , cur_cost, cur_key);
             openList(neigh_keyIndex) = newNode; %add new node to open list
         end
     end

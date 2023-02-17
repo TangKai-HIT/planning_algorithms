@@ -64,22 +64,22 @@ while true
             continue;
         end
 
-        %get neighbor cost
-        neigh_cost = action_set.cost(i);
-        cur_gcost = neigh_cost + cur_Node.g_cost; %current g_cost
-
         %check if new node
         neigh_keyIndex = calKeyIndex2D(neigh_coordinate, x_width, x_min, y_min);
         
         isOpenList = isKey(openList, neigh_keyIndex);
         isClosedList = isKey(closedList, neigh_keyIndex);
+        
+        if isClosedList %continue if in closed list
+            continue;
+        end
 
-        if isOpenList || isClosedList %already in list
-            if isOpenList %in open list
-                neighNode = openList(neigh_keyIndex); %get neighboor node handle
-            else %in closed list
-                neighNode = closedList(neigh_keyIndex); %get neighboor node handle
-            end
+        %get neighbor cost
+        neigh_cost = action_set.cost(i);
+        cur_gcost = neigh_cost + cur_Node.g_cost; %current g_cost
+
+        if isOpenList %already in open list
+            neighNode = openList(neigh_keyIndex); %get neighboor node handle
             %update cost & parent index
             if neighNode.g_cost > cur_gcost
                 neighNode.g_cost =  cur_gcost; 
