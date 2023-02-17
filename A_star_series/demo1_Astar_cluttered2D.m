@@ -28,7 +28,7 @@ action_set.cost(1:4) = sqrt(2);
 action_set.cost(5:8) = 1;
 
 %% Start planning
-weight = 1; % heuristic weight
+weight = 1.5; % heuristic weight
 heuristicFcn = @(cur, goal) getHeuristicCost2D(cur, goal, weight);
 disp("Start A* algorithm ...");
 tic;

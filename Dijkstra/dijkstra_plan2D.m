@@ -46,6 +46,7 @@ while true
     %end-condition: find goal
     if cur_key == goalKey
         findFlag = true;
+        disp("Find goal!");
         break;
     end
 
