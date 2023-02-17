@@ -27,9 +27,11 @@ action_set.cost(1:4) = sqrt(2);
 action_set.cost(5:8) = 1;
 
 %% Start planning
+weight = 1; % heuristic weight
+heuristicFcn = @(cur, goal) getHeuristicCost2D(cur, goal, weight);
 disp("Start A* algorithm ...");
 tic;
-pathNodeList = Astar_plan2D(start, goal, map.table, action_set, @getHeuristicCost2D);
+pathNodeList = Astar_plan2D(start, goal, map.table, action_set, heuristicFcn);
 solve_time = toc;
 fprintf("Solve time: %.3f s\n", solve_time);
 
