@@ -9,8 +9,8 @@ function pathNodeList = dijkstra_plan2D(start_state, goal_state, map, action_set
 %       pathNodeList: dijkNode array
 
 %% Init
-openList = containers.Map('KeyType', 'double', 'ValueType', 'any'); %point index set of those haven't been accepted
-closedList = containers.Map('KeyType', 'double', 'ValueType', 'any'); %point index set of those have been accepted
+openList = containers.Map('KeyType', 'int32', 'ValueType', 'any'); %point index set of those haven't been accepted
+closedList = containers.Map('KeyType', 'int32', 'ValueType', 'any'); %point index set of those have been accepted
 
 x_width = size(map, 1) + 1;
 x_max = size(map, 1);
