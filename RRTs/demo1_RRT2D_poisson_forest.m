@@ -6,10 +6,10 @@ close all;
 
 %% Create environment
 bbox = [0 1 0 1]; %unit bounding box
-side = 0.1;
-num_squares = 20; % number of rectangles
+side = 0.05;
+num_squares = 75; % number of rectangles
 
-rng(1); %random seed
+rng(4); %random seed
 square_array = get_square_poisson_forest( bbox, side, num_squares );
 
 resolution = 0.001; %resolution of map
@@ -40,7 +40,7 @@ sampleRange = [xSampleRange, ySampleRange];
 calDisFcn = @getDistanceL2;
 collisDetectFcn = @(state1, state2) lineCollisCheck_map(state1, state2, map);
 
-maxIter = 300;
+maxIter = 800;
 %create planner
 myRRT = RRT_Planner(start, goal, extendLen, goalCheckProb, sampleRange, calDisFcn, collisDetectFcn);
 
